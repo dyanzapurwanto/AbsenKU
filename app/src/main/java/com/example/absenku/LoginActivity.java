@@ -71,8 +71,8 @@ public class LoginActivity extends AppCompatActivity {
         switch (view.getId()){
             case R.id.radio_mhs:
                 if(isSelected){
-                    radio_mhs.setTextColor(Color.BLACK);
-                    radio_dsn.setTextColor(Color.WHITE);
+                    radio_mhs.setTextColor(Color.WHITE);
+                    radio_dsn.setTextColor(Color.BLACK);
                     usertype = "mhs";
                     username.setHint("NIM Mahasiswa");
                     txtUser.setText("NIM");
@@ -80,8 +80,8 @@ public class LoginActivity extends AppCompatActivity {
                 break;
             case R.id.radio_dsn:
                 if(isSelected){
-                    radio_mhs.setTextColor(Color.WHITE);
-                    radio_dsn.setTextColor(Color.BLACK);
+                    radio_mhs.setTextColor(Color.BLACK);
+                    radio_dsn.setTextColor(Color.WHITE);
                     usertype = "dsn";
                     username.setHint("NIDN Dosen");
                     txtUser.setText("NIDN");
