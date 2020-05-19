@@ -5,99 +5,119 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/colorPrimary"
-    android:gravity="center"
-    android:padding="10dp"
     tools:context=".LoginActivity"
     android:animateLayoutChanges="true">
 
-    <RadioGroup
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginHorizontal="40dp"
-        android:layout_marginBottom="30dp">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_gravity="top"
+            android:layout_height="90dp"
+            android:background="@drawable/title" />
+    </LinearLayout>
 
-        <androidx.appcompat.widget.AppCompatRadioButton
-            android:id="@+id/radio_mhs"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:textColor="@android:color/black"
-            android:text="Mahasiswa"
-            android:gravity="center"
-            android:button="@android:color/transparent"
-            android:layout_weight="1"
-            android:background="@drawable/radio_mhs_selector"
-            android:checked="true"
-            android:onClick="onRadioButtonClicked"/>
-        <androidx.appcompat.widget.AppCompatRadioButton
-            android:id="@+id/radio_dsn"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:textColor="@android:color/white"
-            android:text="Dosen"
-            android:gravity="center"
-            android:button="@android:color/transparent"
-            android:layout_weight="1"
-            android:background="@drawable/radio_dsn_selector"
-            android:checked="false"
-            android:onClick="onRadioButtonClicked"/>
-
-    </RadioGroup>
-    <TextView
-        android:id="@+id/txtUser"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:text="NIM"
-        android:textSize="15dp"
-        android:textColor="@android:color/white"
-        android:textStyle="bold"/>
-    <EditText
-        android:background="@drawable/capsule"
-        android:inputType="text"
-        android:id="@+id/username"
-        android:paddingLeft="20dp"
-        android:layout_marginBottom="10dp"
-        android:hint="NIM Mahasiswa"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:focusableInTouchMode="true"
-        android:textCursorDrawable="@null"/>
-
-    <TextView
-        android:id="@+id/txtPassword"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:text="PASSWORD"
-        android:textSize="15dp"
-        android:textColor="@android:color/white"
-        android:textStyle="bold"/>
-
-    <EditText
-        android:background="@drawable/capsule"
-        android:inputType="textPassword"
-        android:id="@+id/password"
-        android:paddingLeft="20dp"
-        android:layout_marginBottom="10dp"
-        android:hint="Password"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:focusableInTouchMode="true"
-        android:textCursorDrawable="@null"/>
 
     <LinearLayout
-        android:layout_width="300dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="right">
-        <Button
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:padding="15dp"
+        android:orientation="vertical">
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="40dp"
+            android:layout_marginBottom="30dp">
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/radio_mhs"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:textColor="@android:color/black"
+                android:text="Mahasiswa"
+                android:gravity="center"
+                android:button="@android:color/transparent"
+                android:layout_weight="1"
+                android:background="@drawable/radio_mhs_selector"
+                android:checked="true"
+                android:onClick="onRadioButtonClicked"/>
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/radio_dsn"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:textColor="@android:color/white"
+                android:text="Dosen"
+                android:gravity="center"
+                android:button="@android:color/transparent"
+                android:layout_weight="1"
+                android:background="@drawable/radio_dsn_selector"
+                android:checked="false"
+                android:onClick="onRadioButtonClicked"/>
+
+        </RadioGroup>
+        <TextView
+            android:id="@+id/txtUser"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="NIM"
+            android:textSize="17dp"
+            android:textColor="@color/colorNeutral"
+            android:textStyle="bold"/>
+        <EditText
             android:background="@drawable/capsule"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:textColor="@color/colorPrimary"
-            android:text="LOGIN"
-            android:id="@+id/btn_login"/>
+            android:inputType="text"
+            android:id="@+id/username"
+            android:paddingLeft="20dp"
+            android:layout_marginBottom="10dp"
+            android:hint="NIM Mahasiswa"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            android:textCursorDrawable="@null"/>
+
+        <TextView
+            android:id="@+id/txtPassword"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="PASSWORD"
+            android:textSize="17dp"
+            android:textColor="@color/colorNeutral"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:background="@drawable/capsule"
+            android:inputType="textPassword"
+            android:id="@+id/password"
+            android:paddingLeft="20dp"
+            android:layout_marginBottom="10dp"
+            android:hint="Password"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            android:textCursorDrawable="@null"
+            android:imeOptions="actionDone"
+            />
+
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:gravity="center">
+            <Button
+                android:background="@drawable/capsule3"
+                android:layout_width="115dp"
+                android:layout_height="50dp"
+                android:textColor="@color/colorAccent2"
+                android:text="LOGIN"
+                android:id="@+id/btn_login"/>
+        </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>

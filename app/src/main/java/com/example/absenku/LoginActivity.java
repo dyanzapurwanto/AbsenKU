@@ -13,7 +13,9 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.TypedValue;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -48,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
         login = (Button) findViewById(R.id.btn_login);
         txtUser = (TextView) findViewById(R.id.txtUser);
 
+
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,8 +64,8 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
+
     public void onRadioButtonClicked(View view){
         boolean isSelected = ((AppCompatRadioButton)view).isChecked();
         switch (view.getId()){
