@@ -11,30 +11,126 @@
     android:padding="10dp"
     android:animateLayoutChanges="true">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="WELCOME STUDENT !"
-        android:textColor="@android:color/white"
-        android:textAlignment="center"
-        android:textSize="30dp"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@drawable/white_bg"
+        android:layout_margin="10dp"
+        android:weightSum="2">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:paddingVertical="40dp"
+            android:background="@drawable/colorprim_bg">
 
-    <TextView
-        android:id="@+id/txtNIM"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="NIM"
-        android:textColor="@android:color/white"
-        android:textAlignment="center"
-        android:textSize="30dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="WELCOME STUDENT !"
+                android:textColor="@android:color/white"
+                android:textAlignment="center"
+                android:textSize="25dp"/>
 
-    <Button
-        android:id="@+id/mhsLogout"
-        android:layout_marginTop="20dp"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:text="LOGOUT"
-        android:textColor="@color/colorPrimaryDark"
-        android:background="@drawable/capsule"/>
+            <TextView
+                android:id="@+id/txtNIM"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="NIM"
+                android:textColor="@android:color/white"
+                android:textAlignment="center"
+                android:textSize="25dp"/>
 
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_marginTop="30dp"
+                android:src="@mipmap/ic_launcher"/>
+            <TextView
+                android:id="@+id/txtNamaMhs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="NAMA MAHASISWA"
+                android:textColor="@android:color/white"
+                android:textAlignment="center"
+                android:textSize="25dp"
+                android:layout_marginTop="20dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:background="@drawable/white_bg">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="15dp"
+                android:paddingVertical="15dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Upcoming Classes:"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black"
+                    android:textSize="20dp"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Upcoming Classes1"
+                    android:textColor="@android:color/black"
+                    android:textSize="17dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Upcoming Classes2"
+                    android:textColor="@android:color/black"
+                    android:textSize="17dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Upcoming Classes3"
+                    android:textColor="@android:color/black"
+                    android:textSize="17dp"
+                    />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/scanQR"
+                android:layout_marginTop="40dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="SCAN QR"
+                android:textColor="@android:color/white"
+                android:background="@drawable/capsule2"/>
+            <Button
+                android:id="@+id/mhsLogout"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="LOGOUT"
+                android:textColor="@android:color/white"
+                android:background="@drawable/capsule2"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
 </LinearLayout>
