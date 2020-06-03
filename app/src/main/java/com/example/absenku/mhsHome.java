@@ -17,8 +17,11 @@ Button mhsLogout;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mhs_home);
-        Intent a = getIntent();
-        NIM = a.getStringExtra("NIM");
+
+        final SharedPrefManager sharedPrefManager;
+        sharedPrefManager = new SharedPrefManager(this);
+
+        NIM = sharedPrefManager.getSPID();
         txtNIM = (TextView)findViewById(R.id.txtNIM);
         txtNIM.setText(NIM);
 
@@ -35,8 +38,9 @@ Button mhsLogout;
         mhsLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent b = new Intent(mhsHome.this,LoginActivity.class);
-                startActivity(b);
+                sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN, false);
+                startActivity(new Intent(mhsHome.this, LoginActivity.class)
+                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
                 finish();
             }
         });

@@ -17,8 +17,11 @@ public class dsnHome extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dsn_home);
-        Intent a = getIntent();
-        NIDN = a.getStringExtra("NIDN");
+
+        final SharedPrefManager sharedPrefManager;
+        sharedPrefManager = new SharedPrefManager(this);
+
+        NIDN = sharedPrefManager.getSPID();
         txtNIDN = (TextView)findViewById(R.id.txtNIDN);
         txtNIDN.setText(NIDN);
 
@@ -38,8 +41,10 @@ public class dsnHome extends AppCompatActivity {
         dsnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent c = new Intent(getApplicationContext(),LoginActivity.class);
-                startActivity(c);
+
+                sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN, false);
+                startActivity(new Intent(dsnHome.this, LoginActivity.class)
+                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
                 finish();
             }
         });

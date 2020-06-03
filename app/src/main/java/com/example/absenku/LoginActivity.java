@@ -43,6 +43,24 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        SharedPrefManager sharedPrefManager;
+        sharedPrefManager = new SharedPrefManager(this);
+
+        if (sharedPrefManager.getSPSudahLogin()){
+            if(sharedPrefManager.getSPUserType().matches("dsn"))
+            {
+                Intent loggedin = new Intent(LoginActivity.this, dsnHome.class);
+                startActivity(loggedin.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+            }
+            else if(sharedPrefManager.getSPUserType().matches("mhs"))
+            {
+                Intent loggedin = new Intent(LoginActivity.this, mhsHome.class);
+                startActivity(loggedin.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+            }
+            finish();
+        }
+
         radio_mhs = (AppCompatRadioButton) findViewById(R.id.radio_mhs);
         radio_dsn = (AppCompatRadioButton) findViewById(R.id.radio_dsn);
         username = (EditText) findViewById(R.id.username);
@@ -90,7 +108,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
     public void login_mhs(){
-        StringRequest request = new StringRequest(Request.Method.POST, "https://siakads.000webhostapp.com/login_mhs.php",
+        StringRequest request = new StringRequest(Request.Method.POST, "http://192.168.43.27/absenku/login_mhs.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -98,6 +116,11 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Wrong NIM or Password", Toast.LENGTH_SHORT).show();
                         }
                         else if(response.equals(username.getText().toString())){
+                            SharedPrefManager sharedPrefManager;
+                            sharedPrefManager = new SharedPrefManager(LoginActivity.this);
+                            sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN,true);
+                            sharedPrefManager.saveSPString(SharedPrefManager.SP_UserType,"mhs");
+                            sharedPrefManager.saveSPString(SharedPrefManager.SP_ID,response);
                             Intent a = new Intent(LoginActivity.this,mhsHome.class);
                             a.putExtra("NIM",response);
                             startActivity(a);
@@ -109,6 +132,7 @@ public class LoginActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), "Not Connected to Database", Toast.LENGTH_SHORT).show();
 
             }
         }){
@@ -126,7 +150,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void login_dsn(){
-        StringRequest request = new StringRequest(Request.Method.POST, "https://siakads.000webhostapp.com/login_dsn.php",
+        StringRequest request = new StringRequest(Request.Method.POST, "http://192.168.43.27/absenku/login_dsn.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -134,6 +158,11 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Wrong NIDN or Password", Toast.LENGTH_SHORT).show();
                         }
                         else if(response.equals(username.getText().toString())){
+                            SharedPrefManager sharedPrefManager;
+                            sharedPrefManager = new SharedPrefManager(LoginActivity.this);
+                            sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN,true);
+                            sharedPrefManager.saveSPString(SharedPrefManager.SP_UserType,"dsn");
+                            sharedPrefManager.saveSPString(SharedPrefManager.SP_ID,response);
                             Intent a = new Intent(LoginActivity.this,dsnHome.class);
                             a.putExtra("NIDN",response);
                             startActivity(a);

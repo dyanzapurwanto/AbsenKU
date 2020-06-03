@@ -113,7 +113,7 @@
                 android:background="@drawable/capsule3"
                 android:layout_width="115dp"
                 android:layout_height="50dp"
-                android:textColor="@color/colorAccent2"
+                android:textColor="@color/colorAccent"
                 android:text="LOGIN"
                 android:id="@+id/btn_login"/>
         </LinearLayout>
