@@ -174,6 +174,7 @@ public class LoginActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), "Not Connected to Database", Toast.LENGTH_SHORT).show();
 
             }
         }){
