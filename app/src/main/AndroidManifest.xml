@@ -13,9 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".generateQR"></activity>
+        <activity android:name=".mhsLoggedin"></activity>
+        <activity android:name=".generateQR" />
         <activity android:name=".dsnHome" />
-        <activity android:name=".mhsHome" />
         <activity android:name=".ScanActivity" />
         <activity
             android:name=".LoginActivity"

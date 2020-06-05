@@ -55,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
             }
             else if(sharedPrefManager.getSPUserType().matches("mhs"))
             {
-                Intent loggedin = new Intent(LoginActivity.this, mhsHome.class);
+                Intent loggedin = new Intent(LoginActivity.this, mhsLoggedin.class);
                 startActivity(loggedin.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
             }
             finish();
@@ -72,6 +72,10 @@ public class LoginActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(isEmpty(username) || isEmpty(password))
+                {
+                    Toast.makeText(getApplicationContext(), "Please input credentials", Toast.LENGTH_SHORT).show();
+                }
                 if (usertype.equals("mhs"))
                 {
                     login_mhs();
@@ -121,7 +125,7 @@ public class LoginActivity extends AppCompatActivity {
                             sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN,true);
                             sharedPrefManager.saveSPString(SharedPrefManager.SP_UserType,"mhs");
                             sharedPrefManager.saveSPString(SharedPrefManager.SP_ID,response);
-                            Intent a = new Intent(LoginActivity.this,mhsHome.class);
+                            Intent a = new Intent(LoginActivity.this,mhsLoggedin.class);
                             a.putExtra("NIM",response);
                             startActivity(a);
                         }
@@ -193,5 +197,9 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         moveTaskToBack(true);
+    }
+
+    private boolean isEmpty(EditText myeditText) {
+        return myeditText.getText().toString().trim().length() == 0;
     }
 }
