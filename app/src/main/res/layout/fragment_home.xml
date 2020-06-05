@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/colorPrimary">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:paddingVertical="40dp"
+            android:background="@drawable/colorprim_bg">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="WELCOME STUDENT !"
+                android:textColor="@android:color/white"
+                android:textAlignment="center"
+                android:textSize="25dp"/>
+
+            <TextView
+                android:id="@+id/txtNIM"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="NIM"
+                android:textColor="@android:color/white"
+                android:textAlignment="center"
+                android:textSize="25dp"/>
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="30dp"
+                android:src="@mipmap/ic_launcher"/>
+            <TextView
+                android:id="@+id/txtNamaMhs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="NAMA MAHASISWA"
+                android:textColor="@android:color/white"
+                android:textAlignment="center"
+                android:textSize="25dp"
+                android:layout_marginTop="15dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/colorAccent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="15dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingVertical="15dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Upcoming Classes"
+                    android:textColor="@android:color/black"
+                    android:textSize="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/mhsClasses">
+                </androidx.recyclerview.widget.RecyclerView>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/scanQR"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/capsule2"
+                android:text="SCAN QR"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/mhsLogout"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/capsule2"
+                android:text="LOGOUT"
+                android:textColor="@android:color/white" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
