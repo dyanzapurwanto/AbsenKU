@@ -14,6 +14,6 @@ public class AbsensiFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_absensi,container,false);
+        return inflater.inflate(R.layout.fragment_mhs_absensi,container,false);
     }
 }

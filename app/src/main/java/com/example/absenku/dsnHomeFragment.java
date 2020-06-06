@@ -12,40 +12,41 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-
-public class mhsHomeFragment extends Fragment {
-    TextView txtNIM;
-    String NIM;
-    Button scan;
-    Button mhsLogout;
-    String nimnodot;
-
+public class dsnHomeFragment extends Fragment {
+    TextView txtNIDN;
+    String NIDN;
+    String nidnnodot;
+    Button CreateQR;
+    Button dsnLogout;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_mhs_home,container,false);
+        View view = inflater.inflate(R.layout.fragment_dsn_home,container,false);
         final SharedPrefManager sharedPrefManager;
         sharedPrefManager = new SharedPrefManager(getActivity().getApplicationContext());
 
-        NIM = sharedPrefManager.getSPID();
-        nimnodot = NIM.replaceAll("[.]", "");
-        sharedPrefManager.saveSPString(SharedPrefManager.SP_IDNODOT,nimnodot);
-        txtNIM = (TextView)view.findViewById(R.id.txtNIM);
-        txtNIM.setText(NIM);
+        NIDN = sharedPrefManager.getSPID();
+        nidnnodot = NIDN.replaceAll("[.]", "");
+        txtNIDN = (TextView)view.findViewById(R.id.txtNIDN);
+        txtNIDN.setText(NIDN);
 
-        scan = (Button)view.findViewById(R.id.scanQR);
-        scan.setOnClickListener(new View.OnClickListener() {
+        CreateQR = (Button)view.findViewById(R.id.generateQR);
+
+        CreateQR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent a = new Intent(getActivity().getApplicationContext(),ScanActivity.class);
-                startActivity(a);
+                Intent b = new Intent(getActivity().getApplicationContext(),generateQR.class);
+                b.putExtra("NIDN",NIDN);
+                startActivity(b);
             }
         });
 
-        mhsLogout = (Button)view.findViewById(R.id.mhsLogout);
-        mhsLogout.setOnClickListener(new View.OnClickListener() {
+        dsnLogout = (Button)view.findViewById(R.id.dsnLogout);
+
+        dsnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN, false);
                 startActivity(new Intent(getActivity().getApplicationContext(), LoginActivity.class)
                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
@@ -55,4 +56,3 @@ public class mhsHomeFragment extends Fragment {
         return view;
     }
 }
-

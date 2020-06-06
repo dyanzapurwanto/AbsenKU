@@ -9,20 +9,19 @@ import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class mhsLoggedin extends AppCompatActivity {
+public class dsnLoggedin extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setActionBarTitle("Home");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mhs_loggedin);
+        setContentView(R.layout.activity_dsn_loggedin);
 
-        BottomNavigationView bottomnav = findViewById(R.id.mhs_bottom_nav);
+        BottomNavigationView bottomnav = findViewById(R.id.dsn_bottom_nav);
         bottomnav.setOnNavigationItemSelectedListener(navListener);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.mhs_fragment_container,
-                new mhsHomeFragment()).commit();
-
+        getSupportFragmentManager().beginTransaction().replace(R.id.dsn_fragment_container,
+                new dsnHomeFragment()).commit();
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
@@ -32,21 +31,17 @@ public class mhsLoggedin extends AppCompatActivity {
                     Fragment selectedFragment = null;
 
                     switch (menuItem.getItemId()){
-                        case R.id.nav_home:
+                        case R.id.dsn_nav_home:
                             setActionBarTitle("Home");
-                            selectedFragment = new mhsHomeFragment();
+                            selectedFragment = new dsnHomeFragment();
                             break;
-                        case R.id.nav_kelas:
+                        case R.id.dsn_nav_kelas:
                             setActionBarTitle("Kelas");
-                            selectedFragment = new mhsKelasFragment();
-                            break;
-                        case R.id.nav_absensi:
-                            setActionBarTitle("Absensi");
-                            selectedFragment = new AbsensiFragment();
+                            selectedFragment = new dsnKelasFragment();
                             break;
                     }
 
-                    getSupportFragmentManager().beginTransaction().replace(R.id.mhs_fragment_container,
+                    getSupportFragmentManager().beginTransaction().replace(R.id.dsn_fragment_container,
                             selectedFragment).commit();
                     return true;
                 }

@@ -26,7 +26,7 @@
                 android:id="@+id/txtNIDN"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="NIM"
+                android:text="NIDN"
                 android:textColor="@android:color/white"
                 android:textAlignment="center"
                 android:textSize="25dp"/>
@@ -41,7 +41,7 @@
                 android:id="@+id/txtNamaDsn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="NAMA MAHASISWA"
+                android:text="NAMA DOSEN"
                 android:textColor="@android:color/white"
                 android:textAlignment="center"
                 android:textSize="25dp"

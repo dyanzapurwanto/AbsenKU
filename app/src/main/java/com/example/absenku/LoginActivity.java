@@ -50,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
         if (sharedPrefManager.getSPSudahLogin()){
             if(sharedPrefManager.getSPUserType().matches("dsn"))
             {
-                Intent loggedin = new Intent(LoginActivity.this, dsnHome.class);
+                Intent loggedin = new Intent(LoginActivity.this, dsnLoggedin.class);
                 startActivity(loggedin.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
             }
             else if(sharedPrefManager.getSPUserType().matches("mhs"))
@@ -167,7 +167,7 @@ public class LoginActivity extends AppCompatActivity {
                             sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN,true);
                             sharedPrefManager.saveSPString(SharedPrefManager.SP_UserType,"dsn");
                             sharedPrefManager.saveSPString(SharedPrefManager.SP_ID,response);
-                            Intent a = new Intent(LoginActivity.this,dsnHome.class);
+                            Intent a = new Intent(LoginActivity.this,dsnLoggedin.class);
                             a.putExtra("NIDN",response);
                             startActivity(a);
                         }
