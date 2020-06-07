@@ -10,6 +10,7 @@ public class SharedPrefManager {
     public static final String SP_ID = "spID";
     public static final String SP_UserType = "spUserType";
     public static final String SP_IDNODOT = "spIDNODOT";
+    public static final String SP_NAMA = "spNAMA";
 
     public static final String SP_SUDAH_LOGIN = "spSudahLogin";
 
@@ -50,5 +51,9 @@ public class SharedPrefManager {
 
     public String getSPIDNODOT(){
         return sp.getString(SP_IDNODOT,"");
+    }
+
+    public String getSPNama(){
+        return  sp.getString(SP_NAMA,"");
     }
 }

@@ -16,7 +16,6 @@
         <activity android:name=".dsnLoggedin"></activity>
         <activity android:name=".mhsLoggedin" />
         <activity android:name=".generateQR" />
-        <activity android:name=".dsnHome" />
         <activity
             android:name=".ScanActivity"
             android:theme="@style/AppTheme.noActionBar" />

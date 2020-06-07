@@ -29,6 +29,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -116,21 +119,26 @@ public class LoginActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        if(response.equals("invalid user")){
-                            Toast.makeText(getApplicationContext(), "Wrong NIM or Password", Toast.LENGTH_SHORT).show();
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String credential = jsonObject.getString("username");
+                            if(credential.equals("invalid")){
+                                Toast.makeText(getApplicationContext(), "Wrong NIM or Password", Toast.LENGTH_SHORT).show();
+                            }
+                            else if(credential.equalsIgnoreCase(username.getText().toString())){
+                                SharedPrefManager sharedPrefManager;
+                                sharedPrefManager = new SharedPrefManager(LoginActivity.this);
+                                sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN,true);
+                                sharedPrefManager.saveSPString(SharedPrefManager.SP_UserType,"mhs");
+                                sharedPrefManager.saveSPString(SharedPrefManager.SP_ID,credential);
+                                sharedPrefManager.saveSPString(SharedPrefManager.SP_NAMA,jsonObject.getString("nama"));
+                                Intent a = new Intent(LoginActivity.this,mhsLoggedin.class);
+                                startActivity(a);
+                            }
+
                         }
-                        else if(response.equals(username.getText().toString())){
-                            SharedPrefManager sharedPrefManager;
-                            sharedPrefManager = new SharedPrefManager(LoginActivity.this);
-                            sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN,true);
-                            sharedPrefManager.saveSPString(SharedPrefManager.SP_UserType,"mhs");
-                            sharedPrefManager.saveSPString(SharedPrefManager.SP_ID,response);
-                            Intent a = new Intent(LoginActivity.this,mhsLoggedin.class);
-                            a.putExtra("NIM",response);
-                            startActivity(a);
-                        }
-                        else{
-                            Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT).show();
+                        catch (JSONException e){
+                            e.printStackTrace();
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -158,21 +166,26 @@ public class LoginActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        if(response.equals("invalid user")){
-                            Toast.makeText(getApplicationContext(), "Wrong NIDN or Password", Toast.LENGTH_SHORT).show();
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String credential = jsonObject.getString("username");
+                            if(credential.equals("invalid")){
+                                Toast.makeText(getApplicationContext(), "Wrong NIDN or Password", Toast.LENGTH_SHORT).show();
+                            }
+                            else if(credential.equalsIgnoreCase(username.getText().toString())){
+                                SharedPrefManager sharedPrefManager;
+                                sharedPrefManager = new SharedPrefManager(LoginActivity.this);
+                                sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN,true);
+                                sharedPrefManager.saveSPString(SharedPrefManager.SP_UserType,"dsn");
+                                sharedPrefManager.saveSPString(SharedPrefManager.SP_ID,credential);
+                                sharedPrefManager.saveSPString(SharedPrefManager.SP_NAMA,jsonObject.getString("nama"));
+                                Intent a = new Intent(LoginActivity.this,dsnLoggedin.class);
+                                startActivity(a);
+                            }
+
                         }
-                        else if(response.equals(username.getText().toString())){
-                            SharedPrefManager sharedPrefManager;
-                            sharedPrefManager = new SharedPrefManager(LoginActivity.this);
-                            sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN,true);
-                            sharedPrefManager.saveSPString(SharedPrefManager.SP_UserType,"dsn");
-                            sharedPrefManager.saveSPString(SharedPrefManager.SP_ID,response);
-                            Intent a = new Intent(LoginActivity.this,dsnLoggedin.class);
-                            a.putExtra("NIDN",response);
-                            startActivity(a);
-                        }
-                        else{
-                            Toast.makeText(getApplicationContext(), "Unknown Error", Toast.LENGTH_SHORT).show();
+                        catch (JSONException e){
+                            e.printStackTrace();
                         }
                     }
                 }, new Response.ErrorListener() {

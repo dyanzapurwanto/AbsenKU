@@ -29,14 +29,14 @@
                 android:text="NIDN"
                 android:textColor="@android:color/white"
                 android:textAlignment="center"
-                android:textSize="25dp"/>
+                android:textSize="24dp"/>
 
             <ImageView
                 android:id="@+id/dsnProfile"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginTop="30dp"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@mipmap/ic_profile_round"/>
             <TextView
                 android:id="@+id/txtNamaDsn"
                 android:layout_width="match_parent"
@@ -44,7 +44,7 @@
                 android:text="NAMA DOSEN"
                 android:textColor="@android:color/white"
                 android:textAlignment="center"
-                android:textSize="25dp"
+                android:textSize="19dp"
                 android:layout_marginTop="15dp"/>
         </LinearLayout>
 
@@ -77,7 +77,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/dsnClasses">
+                    android:id="@+id/dsnUpClass">
                 </androidx.recyclerview.widget.RecyclerView>
 
             </LinearLayout>
@@ -87,7 +87,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/capsule2"
                 android:text="Generate QR"
                 android:textColor="@android:color/white" />

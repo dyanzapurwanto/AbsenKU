@@ -11,12 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class KelasAdapter extends RecyclerView.Adapter<KelasAdapter.ViewHolder> {
+public class upKelasAdapter extends RecyclerView.Adapter<upKelasAdapter.ViewHolder> {
 
     private Context context;
     private List<Kelas> list;
 
-    public KelasAdapter(Context context, List<Kelas> list){
+    public upKelasAdapter(Context context, List<Kelas> list){
         this.context = context;
         this.list = list;
     }
@@ -24,7 +24,7 @@ public class KelasAdapter extends RecyclerView.Adapter<KelasAdapter.ViewHolder> 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.kelas_item,parent,
+        View v = LayoutInflater.from(context).inflate(R.layout.upkelas_item,parent,
                 false);
         return new ViewHolder(v);
     }
@@ -33,8 +33,7 @@ public class KelasAdapter extends RecyclerView.Adapter<KelasAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Kelas kelas = list.get(position);
         holder.textNama_Kelas.setText(kelas.getNama_kelas());
-        holder.textKode_Kelas.setText(kelas.getKode_kelas());
-        holder.textHari.setText(kelas.getHari());
+        holder.textJam_Kelas.setText(kelas.getJam_kelas());
     }
 
     @Override
@@ -43,14 +42,13 @@ public class KelasAdapter extends RecyclerView.Adapter<KelasAdapter.ViewHolder> 
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView textNama_Kelas, textKode_Kelas, textHari;
+        public TextView textNama_Kelas, textJam_Kelas;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            textNama_Kelas = itemView.findViewById(R.id.nama_kelas);
-            textKode_Kelas = itemView.findViewById(R.id.kode_kelas);
-            textHari = itemView.findViewById(R.id.hari);
+            textNama_Kelas = itemView.findViewById(R.id.nama_upkelas);
+            textJam_Kelas = itemView.findViewById(R.id.jam_upkelas);
         }
     }
 }
