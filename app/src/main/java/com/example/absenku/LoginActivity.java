@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatRadioButton;
 import androidx.core.content.ContextCompat;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -115,6 +116,9 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
     public void login_mhs(){
+        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
+        progressDialog.setMessage("Loading");
+        progressDialog.show();
         StringRequest request = new StringRequest(Request.Method.POST, "http://192.168.43.27/absenku/login_mhs.php",
                 new Response.Listener<String>() {
                     @Override
@@ -123,6 +127,7 @@ public class LoginActivity extends AppCompatActivity {
                             JSONObject jsonObject = new JSONObject(response);
                             String credential = jsonObject.getString("username");
                             if(credential.equals("invalid")){
+                                progressDialog.dismiss();
                                 Toast.makeText(getApplicationContext(), "Wrong NIM or Password", Toast.LENGTH_SHORT).show();
                             }
                             else if(credential.equalsIgnoreCase(username.getText().toString())){
@@ -132,6 +137,7 @@ public class LoginActivity extends AppCompatActivity {
                                 sharedPrefManager.saveSPString(SharedPrefManager.SP_UserType,"mhs");
                                 sharedPrefManager.saveSPString(SharedPrefManager.SP_ID,credential);
                                 sharedPrefManager.saveSPString(SharedPrefManager.SP_NAMA,jsonObject.getString("nama"));
+                                progressDialog.dismiss();
                                 Intent a = new Intent(LoginActivity.this,mhsLoggedin.class);
                                 startActivity(a);
                             }
@@ -139,11 +145,14 @@ public class LoginActivity extends AppCompatActivity {
                         }
                         catch (JSONException e){
                             e.printStackTrace();
+                            Toast.makeText(getApplicationContext(), "Data not retrieved", Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
                         }
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
                 Toast.makeText(getApplicationContext(), "Not Connected to Database", Toast.LENGTH_SHORT).show();
 
             }
@@ -162,6 +171,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void login_dsn(){
+        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
+        progressDialog.setMessage("Loading");
+        progressDialog.show();
         StringRequest request = new StringRequest(Request.Method.POST, "http://192.168.43.27/absenku/login_dsn.php",
                 new Response.Listener<String>() {
                     @Override
@@ -170,6 +182,7 @@ public class LoginActivity extends AppCompatActivity {
                             JSONObject jsonObject = new JSONObject(response);
                             String credential = jsonObject.getString("username");
                             if(credential.equals("invalid")){
+                                progressDialog.dismiss();
                                 Toast.makeText(getApplicationContext(), "Wrong NIDN or Password", Toast.LENGTH_SHORT).show();
                             }
                             else if(credential.equalsIgnoreCase(username.getText().toString())){
@@ -179,6 +192,7 @@ public class LoginActivity extends AppCompatActivity {
                                 sharedPrefManager.saveSPString(SharedPrefManager.SP_UserType,"dsn");
                                 sharedPrefManager.saveSPString(SharedPrefManager.SP_ID,credential);
                                 sharedPrefManager.saveSPString(SharedPrefManager.SP_NAMA,jsonObject.getString("nama"));
+                                progressDialog.dismiss();
                                 Intent a = new Intent(LoginActivity.this,dsnLoggedin.class);
                                 startActivity(a);
                             }
@@ -186,11 +200,13 @@ public class LoginActivity extends AppCompatActivity {
                         }
                         catch (JSONException e){
                             e.printStackTrace();
+                            progressDialog.dismiss();
                         }
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
                 Toast.makeText(getApplicationContext(), "Not Connected to Database", Toast.LENGTH_SHORT).show();
 
             }
