@@ -3,6 +3,7 @@ package com.example.absenku;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
@@ -34,16 +35,10 @@ public class ScanActivity extends AppCompatActivity implements ZXingScannerView.
 
     @Override
     public void handleResult(final Result result) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(ScanActivity.this);
-        builder.setMessage("Code scanned: "+result.getText())
-                .setCancelable(false)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        onBackPressed();
-                    }
-                });
-        AlertDialog alert = builder.create();
-        alert.show();
+        String kode_absen = result.getText();
+        Intent a =new Intent(getApplicationContext(),mhsAbsen.class);
+        a.putExtra("kode_absen",kode_absen);
+        startActivity(a);
     }
     @Override
     protected void onPause() {

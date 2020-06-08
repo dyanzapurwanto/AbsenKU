@@ -5,17 +5,19 @@ public class Kelas {
     public String hari;
     public String kode_kelas;
     public String jam_kelas;
+    public String absen;
 
     public Kelas(){
 
     }
 
-    public Kelas(String nama_kelas, String hari, String kode_kelas)
+    public Kelas(String nama_kelas, String hari, String kode_kelas, String jam_kelas, String absen)
     {
         this.nama_kelas = nama_kelas;
         this.hari = hari;
         this.kode_kelas = kode_kelas;
         this.jam_kelas = jam_kelas;
+        this.absen = absen;
     }
 
     public String getNama_kelas() {
@@ -48,5 +50,13 @@ public class Kelas {
 
     public void setJam_kelas(String jam_kelas) {
         this.jam_kelas = jam_kelas;
+    }
+
+    public String getAbsen() {
+        return absen;
+    }
+
+    public void setAbsen(String absen) {
+        this.absen = absen;
     }
 }

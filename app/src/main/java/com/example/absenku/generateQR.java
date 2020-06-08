@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.graphics.Bitmap;
-import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -49,25 +48,35 @@ String[] nama_kelas;
 String[] kode_kelas;
 String[] pilihan;
 ArrayAdapter adapter;
+ArrayAdapter adapter2;
 AutoCompleteTextView pilihKelas;
-
+AutoCompleteTextView pilihMinggu;
+String nmKelas;
+String kdKelas;
+String pertemuan;
 private List<Kelas> arrayKelas;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        arrayKelas = new ArrayList<>();
         setContentView(R.layout.activity_generate_qr);
+        String[] minggu = {"1","2","3","4","5","6","7","8","9","10","11","12","13","14"};
+        adapter2 = new ArrayAdapter(generateQR.this, android.R.layout.select_dialog_item, minggu);
+        pilihMinggu= (AutoCompleteTextView)findViewById(R.id.pertemuan);
+        pilihMinggu.setAdapter(adapter2);
+        arrayKelas = new ArrayList<>();
         QR = (ImageView)findViewById(R.id.QRCode);
         generate = (Button)findViewById(R.id.generate);
-        code ="Default";
+        code ="NONE";
         current = (TextView)findViewById(R.id.current);
+        generate.setEnabled(false);
+        generate.setBackground(getDrawable(R.drawable.capsule2dark));
         MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
         try {
             BitMatrix bitMatrix = multiFormatWriter.encode(code, BarcodeFormat.QR_CODE,200,200);
             BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
             Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
             QR.setImageBitmap(bitmap);
-            current.setText("current code: "+code);
+            current.setText("current active class: "+code);
         } catch (WriterException e) {
             e.printStackTrace();
         }
@@ -75,7 +84,7 @@ private List<Kelas> arrayKelas;
         generate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                generate();
+                generate(kdKelas);
             }
         });
         pilihKelas = (AutoCompleteTextView)findViewById(R.id.pilihKelas);
@@ -86,44 +95,94 @@ private List<Kelas> arrayKelas;
                 pilihKelas.showDropDown();
             }
         });
-
+        pilihMinggu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!pilihKelas.getText().toString().matches(""))
+                {
+                    pilihMinggu.showDropDown();
+                }
+            }
+        });
         pilihKelas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 int i;
                 for (i=0;i<pilihan.length;i++) {
-                    if (pilihan[i].matches(pilihKelas.getText().toString()));
-                    current.setText(kode_kelas[i]);
+                    if (pilihan[i].matches(pilihKelas.getText().toString()))
+                    {
+                        kdKelas = kode_kelas[i];
+                    }
                 }
             }
         });
 
-    }
-    public void generate(){
-        MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
-        code = getSaltString();
-        try {
-            BitMatrix bitMatrix = multiFormatWriter.encode(code, BarcodeFormat.QR_CODE,200,200);
-            BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
-            Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
-            QR.setImageBitmap(bitmap);
-            current.setText("current code: "+code);
-        } catch (WriterException e) {
-            e.printStackTrace();
-        }
-    }
+        pilihMinggu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                generate.setEnabled(true);
+                generate.setBackground(getDrawable(R.drawable.capsule2));
+            }
+        });
 
-    protected String getSaltString() {
-        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-        StringBuilder salt = new StringBuilder();
-        Random rnd = new Random();
-        while (salt.length() < 6) { // length of the random string.
-            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
-            salt.append(SALTCHARS.charAt(index));
-        }
-        String saltStr = salt.toString();
-        return saltStr;
+    }
+    public void generate(final String classcode){
 
+        final String url = "http://192.168.43.27/absenku/dsn_set_qr.php";
+        SharedPrefManager sharedPrefManager;
+        sharedPrefManager = new SharedPrefManager(getApplicationContext());
+        final String NIDN = sharedPrefManager.getSPID();
+        final ProgressDialog progressDialog = new ProgressDialog(generateQR.this);
+        progressDialog.setMessage("Loading");
+        progressDialog.show();
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        nmKelas = jsonObject.getString("nama_kelas");
+                        kdKelas = jsonObject.getString("kode_kelas");
+                        pertemuan = jsonObject.getString("minggu");
+                        code = jsonObject.getString("kode_absensi");
+                        current.setText("Current Active Class: "+nmKelas+
+                                "\nPertemuan: "+pilihMinggu.getText().toString()+
+                                "\nKode kelas: "+classcode);
+                        MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
+                        try {
+                            BitMatrix bitMatrix = multiFormatWriter.encode(code, BarcodeFormat.QR_CODE,230,230);
+                            BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
+                            Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
+                            QR.setImageBitmap(bitmap);
+                        } catch (WriterException e) {
+                            e.printStackTrace();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        progressDialog.dismiss();
+                        Toast.makeText(getApplicationContext(),"ERROR!",Toast.LENGTH_SHORT).show();
+                    }
+                    progressDialog.dismiss();
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("Volley", error.toString());
+                    progressDialog.dismiss();
+                    Toast.makeText(getApplicationContext(),"NOT CONNECTED",Toast.LENGTH_SHORT).show();
+                }
+            }){
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+
+                    Map<String,String> params = new HashMap<>();
+                    params.put("nidn",NIDN);
+                    params.put("minggu","pertemuan"+pilihMinggu.getText().toString());
+                    params.put("kode_kelas",classcode);
+                    return params;
+                }
+            };
+            Volley.newRequestQueue(getApplicationContext()).add(stringRequest);
+        Toast.makeText(getApplicationContext(),"Code Generated !",Toast.LENGTH_SHORT).show();
     }
 
     private void getData() {
@@ -169,8 +228,8 @@ private List<Kelas> arrayKelas;
                     if(array.length()<=0)
                     {
                         Kelas kelas = new Kelas();
-                        kelas.setKode_kelas(NIDN);
-                        kelas.setNama_kelas(hari);
+                        kelas.setKode_kelas("NONE");
+                        kelas.setNama_kelas("No Classes");
                         arrayKelas.add(kelas);
                     }
                     else
@@ -207,7 +266,7 @@ private List<Kelas> arrayKelas;
             public void onErrorResponse(VolleyError error) {
                 Log.e("Volley", error.toString());
                 progressDialog.dismiss();
-                Toast.makeText(getApplicationContext(),"NOT CONNECTED",Toast.LENGTH_SHORT);
+                Toast.makeText(getApplicationContext(),"NOT CONNECTED",Toast.LENGTH_SHORT).show();
             }
         }){
             @Override

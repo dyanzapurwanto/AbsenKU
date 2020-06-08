@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".dsnLoggedin"></activity>
+        <activity android:name=".mhsAbsen"></activity>
+        <activity android:name=".dsnLoggedin" />
         <activity android:name=".mhsLoggedin" />
         <activity android:name=".generateQR" />
         <activity
