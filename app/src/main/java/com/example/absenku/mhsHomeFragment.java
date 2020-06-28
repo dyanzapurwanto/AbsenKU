@@ -134,15 +134,27 @@ public class mhsHomeFragment extends Fragment {
             public void onResponse(String response) {
                 try {
                     JSONArray array = new JSONArray(response);
-                    for (int i = 0; i < array.length(); i++) {
-                        JSONObject jsonObject = array.getJSONObject(i);
+                    JSONObject status = array.getJSONObject(0);
+                    if(status.getString("nama_kelas").matches("Tidak ada jadwal"))
+                    {
                         Kelas kelas = new Kelas();
-                        String jam_mulai = jsonObject.getString("jam_mulai");
-                        String jam_selesai = jsonObject.getString("jam_selesai");
-                        kelas.setNama_kelas(jsonObject.getString("nama_kelas"));
-                        kelas.setJam_kelas(jam_mulai+" - "+jam_selesai);
+                        kelas.setJam_kelas("Enjoy ur day");
+                        kelas.setNama_kelas("No Classes Today");
 
                         arrayKelas.add(kelas);
+                    }
+                    else
+                    {
+                        for (int i = 0; i < array.length(); i++) {
+                            JSONObject jsonObject = array.getJSONObject(i);
+                            Kelas kelas = new Kelas();
+                            String jam_mulai = jsonObject.getString("jam_mulai");
+                            String jam_selesai = jsonObject.getString("jam_selesai");
+                            kelas.setNama_kelas(jsonObject.getString("nama_kelas"));
+                            kelas.setJam_kelas(jam_mulai+" - "+jam_selesai);
+
+                            arrayKelas.add(kelas);
+                        }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -167,14 +179,6 @@ public class mhsHomeFragment extends Fragment {
             }
         };
         Volley.newRequestQueue(getActivity().getApplicationContext()).add(stringRequest);
-        if(hari.matches("Sabtu") || hari.matches("Minggu"))
-        {
-            Kelas kelas = new Kelas();
-            kelas.setJam_kelas("Enjoy ur day");
-            kelas.setNama_kelas("No Classes Today");
-
-            arrayKelas.add(kelas);
-        }
     }
 }
 

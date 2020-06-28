@@ -34,11 +34,11 @@ public class AbsenAdapter extends RecyclerView.Adapter<AbsenAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Kelas kelas = list.get(position);
         holder.textNama_Kelas.setText(kelas.getNama_kelas());
-        holder.textKode_Kelas.setText(kelas.getJam_kelas());
+        holder.textKode_Kelas.setText(kelas.getKode_kelas());
         Double persenAbsend = Double.parseDouble(kelas.getAbsen())/14*100;
         int persenAbsen = (int) Math.round(persenAbsend);
         holder.progressAbsen.setProgress(persenAbsen);
-        holder.textKehadiran.setText(kelas.getAbsen()+"/14 Pertemuan "+ persenAbsen);
+        holder.textKehadiran.setText(kelas.getAbsen()+"/14 Pertemuan ");
     }
 
     @Override
