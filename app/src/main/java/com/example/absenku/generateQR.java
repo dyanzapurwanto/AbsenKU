@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,6 +55,8 @@ AutoCompleteTextView pilihMinggu;
 String nmKelas;
 String kdKelas;
 String pertemuan;
+
+ImageButton backFromQR;
 private List<Kelas> arrayKelas;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,6 +125,14 @@ private List<Kelas> arrayKelas;
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 generate.setEnabled(true);
                 generate.setBackground(getDrawable(R.drawable.capsule2));
+            }
+        });
+
+        backFromQR = findViewById(R.id.back_from_qr);
+        backFromQR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
             }
         });
 
